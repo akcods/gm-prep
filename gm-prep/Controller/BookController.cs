@@ -24,7 +24,7 @@ public class BookController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Book>> GetBookById(ObjectId id)
+    public async Task<ActionResult<Book>> GetBookById(string id)
     {
         try
         {
@@ -50,11 +50,11 @@ public class BookController : ControllerBase
     }
 
     [HttpDelete("delete")]
-    public async Task<ActionResult> DeleteBook(Book book)
+    public async Task<ActionResult> DeleteBook(string id)
     {
         try
         {
-            await _booksService.DeleteBookAsync(book);
+            await _booksService.DeleteBookAsync(id);
             return NoContent();
         }
         catch (Exception ex)

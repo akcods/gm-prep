@@ -8,7 +8,7 @@ public class Book
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public ObjectId Id { get; set; }
+    public string Id { get; set; }
     public string Title { get; set; }
     public Author Author { get; set; }
 }

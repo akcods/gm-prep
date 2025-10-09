@@ -12,14 +12,17 @@ public class BookService: IBookService
 
     public async Task<Book> AddBookAsync(Book book)
     {
+        if (string.IsNullOrEmpty(book.Id))
+            book.Id = ObjectId.GenerateNewId().ToString();
+
         await _books.books.AddAsync(book);
         await _books.SaveChangesAsync();
         return book;
     }
 
-    public async Task<bool> DeleteBookAsync(Book book)
+    public async Task<bool> DeleteBookAsync(string id)
     {
-        var bookToDelete = await _books.books.FirstOrDefaultAsync<Book>(b => b.Id == book.Id);
+        var bookToDelete = await _books.books.FirstOrDefaultAsync<Book>(b => b.Id.Equals(id));
         if (bookToDelete is null)
             throw new ArgumentException("The book to delete cannot be deleted");
 
@@ -28,9 +31,9 @@ public class BookService: IBookService
         return result > 0;
     }
 
-    public async Task<Book> GetBookByIdAsync(ObjectId id)
+    public async Task<Book> GetBookByIdAsync(string id)
     {
-        var book = await _books.books.FirstOrDefaultAsync(b => b.Id == id);
+        var book = await _books.books.FirstOrDefaultAsync(b => b.Id.Equals(id));
         if (book is null)
             throw new ArgumentException($"Book with id: {id}, not found");
         return book;

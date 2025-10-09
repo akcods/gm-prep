@@ -7,11 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<BookDbContext>(options =>
 {
-    var conString = Environment.GetEnvironmentVariable("ConnectionString");
-    var dbName = Environment.GetEnvironmentVariable("Database_name");
+    var conString = Env.GetString("ConnectionString");
+    var dbName = Env.GetString("Database_name");
 
-    Console.WriteLine(conString);
-    Console.WriteLine(dbName);
+    Console.WriteLine($"Connection string is: {conString}");
+    Console.WriteLine($"Database name is: {dbName}");
 
     options.UseMongoDB("mongodb://localhost:27017/", "sample_books");
 });
