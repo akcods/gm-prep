@@ -1,9 +1,12 @@
+using api.Types;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 
 Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddGraphQL().AddQueryType<Query>();
 
 builder.Services.AddDbContext<BookDbContext>(options =>
 {
@@ -32,5 +35,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapControllers();
+
+app.MapGraphQL();
 
 app.Run();
