@@ -13,4 +13,8 @@ public class Query
     {
         return await _bookService.GetAllBooksAsync();
     }
+    public async Task<Book> GetBookByIdAsync(string id)
+    {
+        return await _bookService.GetBookByIdAsync(id);
+    }
 }
